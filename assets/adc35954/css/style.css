@@ -1,0 +1,14 @@
+.admin-images-product img {
+    width: 100%;
+}
+.min-image-container {
+    float: left;
+    padding: 10px;
+    width: 25%;
+}
+.clear {
+    clear: both;
+}
+.update img, .delete img {
+    max-width: 100%;
+}

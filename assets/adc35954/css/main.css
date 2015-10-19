@@ -1,0 +1,173 @@
+body {
+    min-width: 1200px;
+}
+.clear {
+    clear: both;
+}
+#sidebar {
+    background: none repeat scroll 0 0 #E8E8E8;
+    border-right: 1px solid #1D1C1C;
+}
+#sidebar {
+    height: 100%;
+    left: 0;
+    overflow: auto;
+    position: fixed !important;
+    top: -1px;
+    width: 210px;
+    z-index: 3000;
+}
+
+#main-content {
+    margin-left: 210px;
+    padding-top: 50px;
+}
+.navbar-inner {
+    background: linear-gradient(to bottom, #383838 0%, #1D1C1C 100%) repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+    border-radius: 4px;
+    min-height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.top-nav {
+    margin-left: 210px;
+}
+.branding {
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+}
+.navbar .nav li a,.navbar .nav li a:hover {
+    color: #C0C0C0;
+    float: none;
+    padding: 10px 15px;
+    text-decoration: none;
+}
+.side-nav li a {
+    border-bottom: 1px solid #1D1C1C;
+}
+.side-nav li a {
+    background: linear-gradient(to bottom, #555957 0%, #3E4240 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+    color: #EEEEEE;
+}
+.side-nav li a {
+    background: linear-gradient(to bottom, #555957 0%, #3E4240 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+    color: #EEEEEE;
+    border-bottom: 1px solid #1D1C1C;
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 40px;
+    padding-left: 10px;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.side-nav {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.side-nav li a:hover {
+    background: #f8f8f8;
+    color:#333;
+}
+.side-nav li ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+
+.side-nav li ul li a {
+    background: none repeat scroll 0 0 #E8E8E8;
+    color: #666666;
+    font-size: 12px;
+    font-weight: normal;
+    padding-left: 30px;
+    text-transform: none !important;
+}
+.breadcrumbs {
+    background: linear-gradient(to bottom, #F1F1F1 0%, #DBDBDB 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 1px solid #C2C2C2;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 #F9F9F9 inset;
+    font-size: 11px;
+    list-style: none outside none;
+    margin: 0 0 18px;
+    padding: 4px 14px;
+}
+.row-fluid {
+background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+#content .head {
+    background: linear-gradient(to bottom, #F1F1F1 0%, #DBDBDB 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #C2C2C2;
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0 1px 0 #F9F9F9 inset, 0 0 3px #DDDDDD;
+    height: 40px;
+    padding: 0 0 0 10px;
+    position: relative;
+}
+.row {
+    margin: 0;
+}
+.button_save {
+    float: right;
+    margin: 7px 9px 0 0;
+}
+.form h5 {
+    width: 60%;
+    float: left;
+}
+
+.form {
+    padding: 0px;
+}
+
+.left_row {
+    float: left;
+    width: 46%;
+    padding: 7px;
+}
+
+.right_row {
+    float: left;
+    width: 50%;
+    padding: 7px;
+}
+.row label {
+    color: #0085C4;
+}
+.right_row input {
+    width: 100%;
+}
+
+.button-column .view {
+    display: none;
+}
+
+.preview img {
+    width: 100px;
+}
+.errorMessage {
+    color: #ff0000;
+}
+.row label {
+    border: none;
+}
+
+.for-image img {
+    height: 60px;
+    width: 60px;
+}
+td {
+    text-align: center;
+}
+#product-grid input {
+    padding: 3px 2px;
+}
