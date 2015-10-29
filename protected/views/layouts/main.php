@@ -325,7 +325,7 @@
     </div>
 </div>
 
-<div class="-market-link"><a href="http://garmata.tv/uk/site/video/769.html" target="_blank"><img src="http://garmata.tv/images/garmata-baner.gif" alt=""></a></div>
+<div class="-market-link" style="display:none"><a href="http://garmata.tv/uk/site/video/769.html" target="_blank"><img src="http://garmata.tv/images/garmata-baner.gif" alt=""></a></div>
 
 <?= $content; ?>
 
