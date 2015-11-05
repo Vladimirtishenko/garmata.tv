@@ -449,7 +449,7 @@ class SiteController extends Controller
           $headers  = "Content-type: text/html; charset=windows-1251 \r\n"; 
           $headers .= "From:".$_POST['email']."\r\n"; 
           $headers .= "Reply-To: ".$_POST['email']."\r\n"; 
-          $mail_to  = "vladimirtishenko1@gmail.com" ; 
+          $mail_to  = "news@garmata.tv" ; 
           $thm = "Новое письмо с сайта Garmata.tv"; 
           $msg = ' <p>Автор:'.$_POST['name'].'</p></br> <p>Email:'.$_POST['email'].'</p> </br> <p>Номер телефона:'.$_POST['number'].'</p> </br> <p>Тема новости:'.$_POST['title'].'</p> <br /> <p>Текст новости:'.$_POST['mess'].'</p>';
           // Отправляем почтовое сообщение 
@@ -457,6 +457,8 @@ class SiteController extends Controller
               mail($mail_to, $thm, $msg, $headers);
           else
               $this->send_mail($mail_to, $thm, $msg, $picture);
+
+          header('Location: /', true, 307);
     }
 
     public function actionYahooWeather($code, $units, $lang) {

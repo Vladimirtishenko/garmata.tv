@@ -157,7 +157,7 @@
                         <a href="<?= Yii::app()->createUrl('/site/videos'); ?>"><?= Yii::t('main', 'Відео'); ?></a>
                         <ul class="inDrop">
                             <li>
-                                <?php $lastVideo = Video::model()->find(array('order'=>'date Desc', 'condition'=>'category_id = :category_id', 'params'=>array(':category_id'=>$category->id))); ?>
+                                <?php $lastVideo = Video::model()->find(array('order'=>'id DESC' /*, 'condition'=>'category_id = :category_id', 'params'=>array(':category_id'=>$category->id)*/)); ?>
                                 <a href="<?= Yii::app()->createUrl('/site/video', array('id'=>$lastVideo->id)); ?>" class="menuOuterImg">
                                     <img src="<?= Yii::app()->baseUrl.'/uploads/video/'.$lastVideo->image; ?>" alt="">
                                 </a>
@@ -178,7 +178,7 @@
                                         <div class="discrPhoto">
                                             <span><?= $this->getStringDate($photo->date); ?> &nbsp;
                                                 <i class="fa fa-eye"></i> <?= (int)$photo->views; ?></span>     
-                                             <?= CHtml::link(strip_tags($this->getShortDescription(Yii::app()->language == 'ru' ? $photo->title_ru : $photo->title_uk, 50)."..."), array('/site/photos', 'id'=>$photo->id)); ?>
+                                             <?= CHtml::link(strip_tags($this->getShortDescription(Yii::app()->language == 'ru' ? $photo->title_ru : $photo->title_uk, 50)."..."), array('/site/video', 'id'=>$photo->id)); ?>
                                         </div>
                                     <?php endforeach; ?>
                                 </div>

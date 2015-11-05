@@ -7,7 +7,14 @@ $this->metaAttributes[]  = '<link rel="image_src" href="http://garmata.tv'.Yii::
 $this->metaAttributes[]  = '<meta property="image" content="http://garmata.tv'.Yii::app()->baseUrl.'/uploads/video/'.$model->image.'"/>';
 $this->metaAttributes[]  = '<meta property="vk:image" content="http://garmata.tv'.Yii::app()->baseUrl.'/uploads/video/'.$model->image.'"/>';
 ?>
-
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/uk_UA/sdk.js#xfbml=1&version=v2.5&appId=835898546525811";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <div class="outerSectionMain">
     <section class="main">
         <div class="outerLevel1">
@@ -39,7 +46,33 @@ $this->metaAttributes[]  = '<meta property="vk:image" content="http://garmata.tv
                             </a>
                         <?php endif; ?>
                         <?= Yii::app()->language == 'ru' ? $model->title_ru : $model->title_uk; ?></h2>
-                    <iframe src="http://www.youtube.com/embed/<?= $model->video; ?>" frameborder="0" allowfullscreen></iframe>
+                        <? 
+
+                            $mystring = $model->video; 
+                            $findme = 'facebook.com'; 
+                            $pos = strpos($mystring, $findme); 
+
+                            if($pos !== false){
+                                echo "<div class='fb-video' data-href='".$model->video."' data-width='650'></div>";
+                            } else {
+                                $findme = 'vk.com'; 
+                                $pos = strpos($mystring, $findme);
+                                if($pos !== false){
+                                    echo "<iframe src='".$model->video."' frameborder='0' allowfullscreen></iframe>";
+                                } else {
+                                    $findme = 'http'; 
+                                    $pos = strpos($mystring, $findme);
+
+                                    if($pos !== false){
+                                        echo "<iframe src='".$model->video."' frameborder='0' allowfullscreen></iframe>";
+                                    } else {
+                                        echo "<iframe src='http://www.youtube.com/embed/".$model->video."' frameborder='0' allowfullscreen></iframe>";
+                                    }
+                                }
+                            } 
+
+
+                           ?>
                     <p><?= Yii::app()->language == 'ru' ? $model->description_ru : $model->description_uk; ?></p>
                 </div>
                 <div class="socialShare">
@@ -99,6 +132,7 @@ $this->metaAttributes[]  = '<meta property="vk:image" content="http://garmata.tv
                     <?php endforeach; ?>
                     </div>
                 </div>
+
             </div>
 
             <div class="allmini pageWithoutTop">
