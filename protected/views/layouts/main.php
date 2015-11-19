@@ -173,7 +173,7 @@
                             <li>
                                 <div class="helpersPhoto"></div>
                                 <div class="rightPhoto">
-                                    <?php $lastPhotos = Video::model()->findAll(array('limit'=>2, 'offset'=>2, 'order'=>'id DESC'));?>
+                                    <?php $lastPhotos = Video::model()->findAll(array('limit'=>2, 'offset'=>1, 'order'=>'id DESC'));?>
                                     <?php foreach($lastPhotos as $photo): ?>
                                         <div class="discrPhoto">
                                             <span><?= $this->getStringDate($photo->date); ?> &nbsp;

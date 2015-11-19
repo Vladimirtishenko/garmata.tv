@@ -15,7 +15,7 @@ $this->metaAttributes[]  = '<meta property="vk:image" content="http://garmata.tv
                 <h4><?= Yii::t('main', 'Категорія'); ?> <span class="caret-right"></span>
                     <?php if($data->reclame): ?>
                         <a href="#" class="tooltips fa fa-pinterest-p">
-                            <span>Рекламные материалы</span>
+                            <span><?=Yii::t('main', 'Рекламні матеріали'); ?></span>
                         </a>
                     <?php endif; ?>
                     <?= CHtml::link(Yii::app()->language == 'ru' ? $data->category->title_ru : $data->category->title_uk, array('/site/category', 'alias'=>$data->category->alias)); ?>

@@ -38,7 +38,7 @@
                                     <i class="fa fa-eye"></i> <?= (int) $photo->views; ?></span></h4>
                             <h5>
                                 <?php if($photo->reclame): ?>
-                                    <a class="tooltips fa fa-pinterest-p" href="#"><span>Рекламные материалы</span></a>
+                                    <a class="tooltips fa fa-pinterest-p" href="#"><span><?=Yii::t('main', 'Рекламні матеріали'); ?></span></a>
                                 <?php endif; ?>
                                 <?= CHtml::link(Yii::app()->language == 'ru' ? $photo->title_ru : $photo->title_uk, array('/site/photos', 'id'=>$photo->id)); ?>
                             </h5>
@@ -73,7 +73,7 @@
                             </h4>
                             <h5>
                                 <?php if($new->reclame): ?>
-                                    <a class="tooltips fa fa-pinterest-p" href="#"><span>Рекламные материалы</span></a>
+                                    <a class="tooltips fa fa-pinterest-p" href="#"><span><?=Yii::t('main', 'Рекламні матеріали'); ?></span></a>
                                 <?php endif; ?>
                                 <?= CHtml::link(Yii::app()->language == 'ru' ? $new->title_ru : $new->title_uk, array('/site/news', 'id'=>$new->id)); ?>
                             </h5>
@@ -107,7 +107,7 @@
                                     <i class="fa fa-eye"></i> <?= (int) $video->views; ?></span></h4>
                             <h5>
                                 <?php if($video->reclame): ?>
-                                    <a class="tooltips fa fa-pinterest-p" href="#"><span>Рекламные материалы</span></a>
+                                    <a class="tooltips fa fa-pinterest-p" href="#"><span><?=Yii::t('main', 'Рекламні матеріали'); ?></span></a>
                                 <?php endif; ?>
                                 <?= CHtml::link(Yii::app()->language == 'ru' ? $video->title_ru : $video->title_uk, array('/site/video', 'id'=>$video->id)); ?>
                             </h5>

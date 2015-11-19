@@ -21,7 +21,7 @@
                             <?php if($news->reclame): ?>
                                 &nbsp; &mdash; &nbsp;
                                 <a class="tooltips fa fa-pinterest-p" href="#">
-                                    <span>Рекламные материалы</span>
+                                    <span><?=Yii::t('main', 'Рекламні матеріали'); ?></span>
                                 </a>
                             <?php endif; ?>
                         <h3><a href="<?= Yii::app()->createUrl('/site/photos', array('id'=>$news->id)); ?>"><?= Yii::app()->language == 'ru' ? $news->title_ru : $news->title_uk; ?></a></h3>

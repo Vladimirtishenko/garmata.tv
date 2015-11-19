@@ -34,7 +34,7 @@ $this->metaAttributes[]  = '<meta property="vk:image" content="http://garmata.tv
                     <h2>
                         <?php if($category->reclame): ?>
                         <a href="#" class="tooltips fa fa-pinterest-p">
-                            <span>Рекламные материалы</span>
+                            <span><?=Yii::t('main', 'Рекламні матеріали'); ?></span>
                         </a>
                         <?php endif; ?>
                         <?= Yii::app()->language == 'ru' ? $category->title_ru : $category->title_uk; ?>

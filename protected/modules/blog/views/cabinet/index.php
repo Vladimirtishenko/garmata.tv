@@ -215,14 +215,12 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/jquery.Jcrop
                 $("#done").append(html);
                 $("#crop").load(function(){
                     var self = $(this);
-                    setTimeout(function () {
-                        self.Jcrop({
-                            aspectRatio: 4/2.8,
-                            boxWidth: 380,
-                            boxHeight: 220,
-                            onSelect: updateCoords
-                        });
-                    }, 500)
+                    self.Jcrop({
+                        aspectRatio: 4/2.8,
+                        boxWidth: 580,
+                        boxHeight: 420,
+                        onSelect: updateCoords
+                    });
                 });
             }
         }).done(function(){
@@ -231,7 +229,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/jquery.Jcrop
     });
 </script>
 <script>
-    $( document ).ready(function() {
+    $(document).ready(function() {
         $("#image-crop").hide();
     });
 </script>
@@ -242,6 +240,11 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/jquery.Jcrop
         $('#y').val(c.y);
         $('#w').val(c.w);
         $('#h').val(c.h);
+
+        console.log($('#x').val())
+        console.log($('#y').val())
+        console.log($('#w').val())
+        console.log($('#h').val())
     };
 
     function checkCoords()

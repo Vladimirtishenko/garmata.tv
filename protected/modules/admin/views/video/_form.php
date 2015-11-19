@@ -198,6 +198,9 @@ Yii::app()->clientScript->registerCssFile($this->module->assetsUrl.'/css/jquery.
                     <?= $form->dropDownList($model,'rss',array(0 => Yii::t('main', 'Ні'), 1 => Yii::t('main', 'Так')), array('class'=>'form-control')); ?>
                     <?= $form->error($model,'rss'); ?>
                 </div>
+
+
+               
             </div>
         </div>
     </div>

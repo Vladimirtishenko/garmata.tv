@@ -176,6 +176,7 @@ class CabinetController extends Controller
         }
         $function = 'image'.$type;
 
+
         $resizeImage = imagecreatetruecolor(324, 230); //$_POST['h'], $_POST['h']
 
         $src_x = $_POST['x'];
@@ -184,6 +185,11 @@ class CabinetController extends Controller
         $dst_x = 0;
         $dst_w = $_POST['w'];
         $dst_h = $_POST['h'];
+
+
+
+        // print_r($source_image);
+        // exit;
 
         imagecopyresampled($resizeImage,$source_image, 0, 0, $src_x, $src_y,
             324, 230, $dst_w, $dst_h);

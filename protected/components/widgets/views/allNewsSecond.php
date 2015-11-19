@@ -36,7 +36,7 @@ $oldDate = '';
                     <h6>
                         <?php if($news['reclame']): ?>
                             <a class="tooltips fa fa-pinterest-p" href="#">
-                                <span>Рекламные материалы</span>
+                                <span><?=Yii::t('main', 'Рекламні матеріали'); ?></span>
                             </a>
                             —
                         <?php endif; ?>

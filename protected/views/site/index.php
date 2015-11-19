@@ -33,7 +33,7 @@ $this->metaAttributes[]  = '<meta property="vk:image" content="http://garmata.tv
                                         <span>&nbsp; &mdash; &nbsp; <?= $this->getStringDate($video->date); ?> &nbsp; <i class="fa fa-eye"></i> <?= (int)$video->views; ?></span>
                                         <h3>
                                             <?php if($video->reclame): ?>
-                                                <a class="tooltips fa fa-pinterest-p" href="#"><span>Рекламные материалы</span></a>&nbsp; &mdash; &nbsp;
+                                                <a class="tooltips fa fa-pinterest-p" href="#"><span><?=Yii::t('main', 'Рекламні матеріали'); ?></span></a>&nbsp; &mdash; &nbsp;
                                             <?php endif; ?>
                                             <a href="<?= Yii::app()->createUrl('/site/video', array('id'=>$video->id)); ?>"><?= Yii::app()->language == 'ru' ? $video->title_ru : $video->title_uk; ?></a>
                                         </h3>
@@ -108,7 +108,7 @@ $this->metaAttributes[]  = '<meta property="vk:image" content="http://garmata.tv
                         </h4>
                         <h5>
                             <?php if($newsShuffle['reclame']): ?>
-                                <a class="tooltips fa fa-pinterest-p" href="#"><span>Рекламные материалы</span></a>&nbsp; &mdash; &nbsp;
+                                <a class="tooltips fa fa-pinterest-p" href="#"><span><?=Yii::t('main', 'Рекламні матеріали'); ?></span></a>&nbsp; &mdash; &nbsp;
                             <?php endif; ?>
                             <?php if($newsShuffle['type'] == 'news'): ?>
                                 <?= CHtml::link(Yii::app()->language == 'ru' ? $newsShuffle['title_ru'] : $newsShuffle['title_uk'], array('/site/news', 'id'=>$newsShuffle['id'])); ?>
