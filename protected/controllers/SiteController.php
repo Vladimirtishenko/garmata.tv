@@ -83,22 +83,30 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+
         $sql="
-        (SELECT n.id, n.title_uk, n.title_ru, n.short_ru, n.short_uk, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM news n INNER JOIN category c ON n.category_id = c.id)
+        (SELECT n.id, n.title_uk, n.title_ru, n.short_ru, n.short_uk, n.date, n.category_id, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM news n INNER JOIN category c ON n.category_id = c.id)
             UNION
-        (SELECT n.id, n.title_uk, n.title_ru, n.short_ru, n.short_uk, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM video n INNER JOIN category c ON n.category_id = c.id)
+        (SELECT n.id, n.title_uk, n.title_ru, n.short_ru, n.short_uk, n.date, n.category_id, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM video n INNER JOIN category c ON n.category_id = c.id)
             UNION
-        (SELECT n.id, n.title_uk, n.title_ru, n.short_ru, n.short_uk, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM photo_category n INNER JOIN category c ON n.category_id = c.id)
+        (SELECT n.id, n.title_uk, n.title_ru, n.short_ru, n.short_uk, n.date, n.category_id, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM photo_category n INNER JOIN category c ON n.category_id = c.id)
             ORDER BY  `date` DESC LIMIT 12";
         $connection = Yii::app()->db;
         $command = $connection->createCommand($sql);
         $lastNews = $command->queryAll();
 
-        $lastVideos = Video::model()->findAll(array('order'=>'date DESC', 'limit'=>5));
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'category_id != :category_id';
+        $criteria->order = 'date DESC';
+        $criteria->limit = 5;
+        $criteria->params = array(':category_id'=>11);
+
+        $lastVideos = Video::model()->findAll($criteria);
         $this->render('index', array(
             'lastVideos'=>$lastVideos,
             'lastNews'=>$lastNews,
         ));
+
 	}
 
     public function actionSearch()
@@ -137,7 +145,7 @@ class SiteController extends Controller
     {
         $news = News::model()->findAll(array('order'=>'date DESC', 'limit'=>6));
         $photoCategories = PhotoCategory::model()->findAll(array('order'=>'date DESC', 'limit'=>3));
-        $videos = Video::model()->findAll(array('order'=>'date DESC', 'limit'=>3));
+        $videos = Video::model()->findAll(array('order'=>'date DESC', 'limit'=>3, 'condition'=>'category_id != :category_id', 'params'=>array(':category_id'=>11)));
         $this->render('allNews', array(
             'news'=>$news,
             'photoCategories'=>$photoCategories,
@@ -150,6 +158,7 @@ class SiteController extends Controller
         $data = new CActiveDataProvider('Video',
             array(
                 'criteria'=>array(
+                	'condition'=> 'category_id != 11',
                     'order'=>'id DESC',
                 ),
                 'sort'=>false,
@@ -157,11 +166,36 @@ class SiteController extends Controller
                     'pageSize'=>8
                 ),
             ));
-        $lastVideos = Video::model()->findAll(array('order'=>'date DESC', 'limit'=>4));
+
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'category_id != :category_id';
+        $criteria->order = 'date DESC';
+        $criteria->limit = 4;
+        $criteria->params = array(':category_id'=>11);
+
+        $lastVideos = Video::model()->findAll($criteria);
 
         $this->render('videos', array('data'=>$data, 'lastVideos'=>$lastVideos));
     }
 
+    public function actionDay_of_news()
+    {
+        $data = new CActiveDataProvider('Video',
+            array(
+                'criteria'=>array(
+                	'condition'=> 'category_id = 11',
+                    'order'=>'id DESC'
+                ),
+                'sort'=>false,
+                'pagination'=>array(
+                    'pageSize'=>8
+                ),
+            ));
+        
+        $this->render('news_to_day', array('data'=>$data));
+    }
+
+    
     public function actionVideo($id)
     {
         $model = Video::model()->findByPk($id);

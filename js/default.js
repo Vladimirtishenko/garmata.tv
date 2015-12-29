@@ -470,17 +470,30 @@ if(thisCategoryDone == true){
 }
 var s = getDocumentHeight() - getViewportHeight() ;
 var ls =  s - $(this).scrollTop();
-console.log(thisCatName);
 if(ls < 500 && stop == true){
 stop = false;
 var lengthPhoto = $(".photo").children(".blockPhoto").length;
 var lengthVideo = $(".video").children(".blockVideo").length;
 var lengthNews = $(".news").children(".blockNews").length;
+var dataText = (location.pathname.indexOf("date") > -1) ? location.pathname.split("/") : null;
+var data = null;
+
+	if(dataText){
+		for (var i = 0; i < data.length; i++) {
+			var matchea_array = data[i].match(/\d{0,2}-\d{0,2}-\d{0,4}/i);
+			if(matches_array){
+				var data = matches_array[0];
+			}
+			break;
+		};	
+	}
+
+
 	$.ajax({
       url: "http://garmata.tv/ajax/moreAllPhotos",
       global: false,
       type: "POST",
-      data: ({count : lengthPhoto, category : thisCatName}),
+      data: ({count : lengthPhoto, category : thisCatName, data: data}),
       success: function(html){
       	if(html){
       	$('.photo').append(html);
@@ -495,7 +508,7 @@ var lengthNews = $(".news").children(".blockNews").length;
       url: "http://garmata.tv/ajax/moreAllVideos",
       global: false,
       type: "POST",
-      data: ({count : lengthVideo, category : thisCatName}),
+      data: ({count : lengthVideo, category : thisCatName, data: data}),
       success: function(html){
       	if(html){
 		$('.video').append(html);
@@ -510,7 +523,7 @@ var lengthNews = $(".news").children(".blockNews").length;
       url: "http://garmata.tv/ajax/moreAllNews",
       global: false,
       type: "POST",
-      data: ({count : lengthNews, category : thisCatName}),
+      data: ({count : lengthNews, category : thisCatName, data: data}),
       success: function(html){
       	if(html){
 		$('.news').append(html);

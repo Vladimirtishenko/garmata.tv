@@ -61,6 +61,8 @@
                         <h1><?= Yii::t('main', 'Всі блогери'); ?></h1>
                         <div class="containerBloger">
                             <?php foreach($allBlogers as $bloger): ?>
+                                <?php $article = Articles::model()->find(array('condition'=>'author_id = :id', 'params'=>array(':id'=>$bloger->id), 'limit'=>1, 'order'=>'date DESC')); ?>
+                                <?php if(!empty($article)):?>
                                 <div class="items wow">
                                     <?= CHtml::image(Yii::app()->baseUrl.'/uploads/users/avatars/'.$bloger->avatar, $bloger->name); ?>
                                     <div class="rating">
@@ -74,6 +76,7 @@
                                         </p>
                                     </div>
                                 </div>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                         </div>
 

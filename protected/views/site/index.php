@@ -101,7 +101,11 @@ $this->metaAttributes[]  = '<meta property="vk:image" content="http://garmata.tv
                             </span>
                         </div>
                         <h4>
-                            <?= CHtml::link(Yii::app()->language == 'ru' ? $newsShuffle['category_title_ru'] : $newsShuffle['category_title_uk'], array('/site/category', 'alias'=>$newsShuffle['category_alias'])); ?>
+                            <?php if($newsShuffle['category_id'] != 11): ?>
+                            <?= CHtml::link(Yii::app()->language == 'ru' ? $newsShuffle['category_title_ru'] : $newsShuffle['category_title_uk'], array('/site/category', 'alias'=>$newsShuffle['category_alias'])); ?> 
+                            <?php else: ?>
+                            <?= CHtml::link(Yii::app()->language == 'ru' ? $newsShuffle['category_title_ru'] : $newsShuffle['category_title_uk'], array('/site/day_of_news')); ?> 
+                            <?php endif; ?>   
                             <span><?= $this->getStringDate($newsShuffle['date']); ?> &nbsp; 
                                 <i class="fa fa-eye"></i> <?= (int)$newsShuffle['views']; ?>
                             </span>

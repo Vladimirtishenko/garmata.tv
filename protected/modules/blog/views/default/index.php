@@ -37,6 +37,8 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl. '/css/jquery.bxsl
                 <h1><?= Yii::t('main', 'Всі блогери'); ?></h1>
                 <div class="containerBloger">
                     <?php foreach($allBlogers as $bloger): ?>
+                        <?php $article = Articles::model()->find(array('condition'=>'author_id = :id', 'params'=>array(':id'=>$bloger->id), 'limit'=>1, 'order'=>'date DESC')); ?>
+                        <?php if(!empty($article)):?>
                         <div class="items">
                             <?= CHtml::image(Yii::app()->baseUrl.'/uploads/users/avatars/'.$bloger->avatar, $bloger->name); ?>
                             <div class="rating">
@@ -44,12 +46,13 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl. '/css/jquery.bxsl
                                     <?= CHtml::link($bloger->name, array('/blog/default/bloger', 'id'=>$bloger->id)); ?>
                                     <br>
                                     <span>
-                                        <?php $article = Articles::model()->find(array('condition'=>'author_id = :id', 'params'=>array(':id'=>$bloger->id), 'limit'=>1, 'order'=>'date DESC')); ?>
                                         <b><?= Yii::t('main', 'Останній пост'); ?>:</b> &nbsp; <?= !empty($article) ? date('d-m-Y', strtotime($article->date)) : Yii::t('main', 'У автора немає постів'); ?> &nbsp; <br>
-                                        <i class="fa fa-eye"></i> <?= !empty($article) ? (int)$article->views : Yii::t('main', 'У автора немає постів'); ?></span>
+                                        <i class="fa fa-eye"></i> <?= !empty($article) ? (int)$article->views : Yii::t('main', 'У автора немає постів'); ?>
+                                    </span>
                                 </p>
                             </div>
                         </div>
+                    <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
                 <div class="posts">

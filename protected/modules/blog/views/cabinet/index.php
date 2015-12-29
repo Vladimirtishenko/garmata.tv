@@ -30,7 +30,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/jquery.Jcrop
                     <div>
                         <div><?= Yii::t('main', 'Професія'); ?>: 
                         <div class="dropRep">
-                            <p><i class="fa fa-bookmark hoverIco"></i> Редагувати</p>
+                            <p><i class="fa fa-bookmark hoverIco"></i> <?= Yii::t('main', 'Редагувати'); ?></p>
                             <div class="inputMrnu">
                             <span class="closX">X</span>
                                 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -137,6 +137,8 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/jquery.Jcrop
                         <h1>Все блогеры</h1>
                         <div class="containerBloger">
                             <?php foreach($allBlogers as $bloger): ?>
+                                <?php $article = Articles::model()->find(array('condition'=>'author_id = :id', 'params'=>array(':id'=>$bloger->id), 'limit'=>1, 'order'=>'date DESC')); ?>
+                                <?php if(!empty($article)):?>
                                 <div class="items wow">
                                     <?= CHtml::image(Yii::app()->baseUrl.'/uploads/users/avatars/'.$bloger->avatar, $bloger->name); ?>
                                     <div class="rating">
@@ -144,12 +146,12 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/jquery.Jcrop
                                             <?= CHtml::link($bloger->name, array('/blog/default/bloger', 'id'=>$bloger->id)); ?>
                                             <br>
                                     <span>
-                                        <?php $article = Articles::model()->find(array('condition'=>'author_id = :id', 'params'=>array(':id'=>$bloger->id), 'limit'=>1, 'order'=>'date DESC')); ?>
                                         <b><?= Yii::t('main', 'Останній пост'); ?>:</b> &nbsp; <?= !empty($article) ? date('d-m-Y', strtotime($article->date)) : Yii::t('main', 'У автора немає постів'); ?> &nbsp; <br>
                                         <i class="fa fa-eye"></i> <?= !empty($article) ? (int)$article->views : Yii::t('main', 'У автора немає постів'); ?></span>
                                         </p>
                                     </div>
                                 </div>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                         </div>
 
@@ -216,9 +218,9 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/jquery.Jcrop
                 $("#crop").load(function(){
                     var self = $(this);
                     self.Jcrop({
-                        aspectRatio: 4/2.8,
-                        boxWidth: 580,
-                        boxHeight: 420,
+                        aspectRatio: 4 / 2.8,
+                        boxWidth: 400, 
+                        boxHeight: 400,
                         onSelect: updateCoords
                     });
                 });
@@ -240,11 +242,6 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/jquery.Jcrop
         $('#y').val(c.y);
         $('#w').val(c.w);
         $('#h').val(c.h);
-
-        console.log($('#x').val())
-        console.log($('#y').val())
-        console.log($('#w').val())
-        console.log($('#h').val())
     };
 
     function checkCoords()

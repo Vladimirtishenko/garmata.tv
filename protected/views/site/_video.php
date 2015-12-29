@@ -14,7 +14,7 @@
         <?php if($data->reclame): ?>
             <a class="tooltips fa fa-pinterest-p" href="#"><span>Рекламные материалы</span></a>
         <?php endif; ?>
-        <a href="<?= Yii::app()->createUrl('/site/video', array('id'=>$data->id)); ?>"><?= Yii::app()->language == 'ru' ? $data->title_ru : $data->title_uk; ?></a>
+        <?= CHtml::link(strip_tags($this->getShortDescription(Yii::app()->language == 'ru' ? $data->title_ru : $data->title_uk, 70)."..."), array('/site/video', 'id'=>$data->id)); ?>
     </h3>
     <p><?= Yii::app()->language == 'ru' ? $data->short_ru : $data->short_uk; ?></p>
     <hr>

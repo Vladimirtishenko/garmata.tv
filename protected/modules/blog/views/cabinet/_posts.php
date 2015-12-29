@@ -7,10 +7,9 @@
  */
 ?>
 <section class="postOneBloger">
-        <?= CHtml::link('<span class="glyphicon glyphicon-pencil"></span>'.Yii::t('main', 'Редагувати'), array('/blog/cabinet/update', 'id'=>$data->id)); ?>
+        <?= CHtml::link(Yii::t('main', 'Редагувати'), array('/blog/cabinet/update', 'id'=>$data->id)); ?>
             &nbsp;
-            <span class="glyphicon glyphicon-remove"></span>
-            <?= CHtml::ajaxLink(Yii::t('main', 'Видалити'), array('/blog/cabinet/delete', 'id'=>$data->id),
+        <?= CHtml::ajaxLink(Yii::t('main', 'Видалити'), array('/blog/cabinet/delete', 'id'=>$data->id),
                 array(
                     //'update'=>'#req_res_loading',
                     'beforeSend' => 'function() {

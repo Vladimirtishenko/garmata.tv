@@ -35,6 +35,7 @@ class CabinetController extends Controller
 
     public function actionIndex()
     {
+
         $user = User::model()->findByPk(Yii::app()->user->id);
         $allPosts = new CActiveDataProvider('Articles',
             array(
@@ -156,6 +157,10 @@ class CabinetController extends Controller
         $fullImagePath = Yii::getPathOfAlias('webroot.uploads.users.tmp').DIRECTORY_SEPARATOR.$name;
         $quality = 100;
 
+        if (file_exists(Yii::getPathOfAlias('webroot.uploads.users.avatars').DIRECTORY_SEPARATOR.$name)) {  
+            unlink(Yii::getPathOfAlias('webroot.uploads.users.avatars').DIRECTORY_SEPARATOR.$name);      
+        }
+
         $fullImg = getimagesize($fullImagePath);
         switch(strtolower($fullImg['mime']))
         {
@@ -176,7 +181,6 @@ class CabinetController extends Controller
         }
         $function = 'image'.$type;
 
-
         $resizeImage = imagecreatetruecolor(324, 230); //$_POST['h'], $_POST['h']
 
         $src_x = $_POST['x'];
@@ -186,32 +190,26 @@ class CabinetController extends Controller
         $dst_w = $_POST['w'];
         $dst_h = $_POST['h'];
 
-
-
-        // print_r($source_image);
-        // exit;
-
         imagecopyresampled($resizeImage,$source_image, 0, 0, $src_x, $src_y,
             324, 230, $dst_w, $dst_h);
+        
 
         $function($resizeImage, Yii::getPathOfAlias('webroot.uploads.users.avatars').DIRECTORY_SEPARATOR.$name, $quality);
         $user = User::model()->findByPk(Yii::app()->user->id);
         $user->avatar = $name;
         
-		if($user->save(false)) {
-			echo Yii::app()->baseUrl.'/uploads/users/avatars/'.$name;
-		} else {
-			var_dump($user->errors); exit;
-		}
+        if($user->save(false)) {
+            echo '/uploads/users/avatars/'.$name."?uniq=".uniqid();
+        } else {
+            var_dump($user->errors); exit;
+        }
        
         Yii::app()->end();
-
-
     }
 
     public function actionUpload()
     {
-        $name = Yii::app()->user->id."_".uniqid();
+        $name = Yii::app()->user->id;
         $image = CUploadedFile::getInstanceByName('avatar');
 
         switch(strtolower($image->type))
@@ -227,10 +225,15 @@ class CabinetController extends Controller
                 break;
             default: die('image type not supported');
         }
+
+        if (file_exists(Yii::getPathOfAlias('webroot.uploads.users.tmp').DIRECTORY_SEPARATOR.$name.$type)) {  
+            unlink(Yii::getPathOfAlias('webroot.uploads.users.tmp').DIRECTORY_SEPARATOR.$name.$type);      
+        }
+
         $image->saveAs(Yii::getPathOfAlias('webroot.uploads.users.tmp').DIRECTORY_SEPARATOR.$name.$type);
         list($resource['width'], $resource['height']) = getimagesize(Yii::getPathOfAlias('webroot.uploads.users.tmp').DIRECTORY_SEPARATOR.$name.$type);
 
-        echo CHtml::image(Yii::app()->baseUrl.'/uploads/users/tmp/'.$name.$type, '', array('id'=>'crop'));
+        echo CHtml::image(Yii::app()->baseUrl.'/uploads/users/tmp/'.$name.$type."?uniq=".uniqid(), '', array('id'=>'crop'));
         echo CHtml::hiddenField('nameFull', $name.$type);
         Yii::app()->end();
     }

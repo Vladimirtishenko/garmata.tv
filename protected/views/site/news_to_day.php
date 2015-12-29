@@ -7,46 +7,7 @@
     <div class="videoBlock pageWithoutTop">
         <hr>
         <h1><?=Yii::t('main', 'Новини за дві хвилини'); ?></h1>
-        <div class="carousel carousel--wide" data-carousel>
-            <!-- Items to cycle -->
-            <div class="carousel-items">
-                <ul data-carousel-items>
-                    <?php foreach($lastVideos as $video): ?>
-                        <li>
-                            <a href="<?= Yii::app()->createUrl('/site/video', array('id'=>$video->id)); ?>">
-								<img src="<?= Yii::app()->baseUrl.'/uploads/video/'.$video->image; ?>" alt="" class="fluid" />
-                            </a>
-                            <span class="iconsforNews"><i class="fa fa-play-circle hoverIco"></i></span>
-                            <div class="forTextPageVideo">
-                                <h3>
-                                    <a href="<?= Yii::app()->createUrl('/site/video', array('id'=>$video->id)); ?>"><?= Yii::app()->language == 'ru' ? $video->title_ru : $video->title_uk; ?></a>
-                                </h3>
-                                <p><?= Yii::app()->language == 'ru' ? $video->short_ru : $video->short_uk; ?></p>
-                                <h4>
-                                    <?= Yii::app()->language == 'ru' ? $video->category->title_ru : $video->category->title_uk; ?>
-                                </h4>
-                                <span><?= $this->getStringDate($video->date); ?> &nbsp;
-                                    <i class="fa fa-eye"></i> <?= (int)$video->views; ?></span>
-                            </div>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-            <a href="javascript:;" class="carousel-prev" data-carousel-prev><span class="caret-left"></span></a>
-            <a href="javascript:;" class="carousel-next" data-carousel-next><span class="caret-right"></span></a>
-            <div class="carousel-tabs">
-                <ol class="bullets" data-carousel-tabs>
-                    <?php foreach($lastVideos as $video): ?>
-                        <li><a href="javascript:;"></a></li>
-                    <?php endforeach; ?>
-                </ol>
-            </div>
-
-        </div>
-        <div class="allVideoPage">
-            <hr>
-            <h1><?=Yii::t('main', 'Всі новини за дві хвилини'); ?></h1>
-
+        <div class="allVideoPage -for-day">
             <?php
             $this->widget('zii.widgets.CListView', array(
                 'dataProvider'=>$data,

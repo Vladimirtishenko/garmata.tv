@@ -1,7 +1,4 @@
-<?php/**/
-?>
-
-    <div class="outerSectionMain">
+<div class="outerSectionMain">
     <section class="main">
     <div class="outerLevel1">
     <div class="videoBlock pageWithoutTop">

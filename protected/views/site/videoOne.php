@@ -21,8 +21,16 @@ $this->metaAttributes[]  = '<meta property="vk:image" content="http://garmata.tv
             <div class="videoBlock pageWithoutTop oneVideoPage">
                 <hr>
                 <h1><?= Yii::t('main', 'Відеоматеріал'); ?></h1>
-                <h4><?= Yii::t('main', 'Категорія'); ?> <span class="caret-right"></span> <a href="<?= Yii::app()->createUrl('/site/category', array('alias'=>$model->category->alias)); ?>"><?= Yii::app()->language == 'ru' ? $model->category->title_ru : $model->category->title_uk; ?></a> <span><?= $this->getStringDate($model->date); ?> &nbsp;
-                        <i class="fa fa-eye"></i> <?= (int)$model->views; ?></span>
+                <h4>
+                    <?= Yii::t('main', 'Категорія'); ?> 
+                    <span class="caret-right"></span> 
+                    <?php if($model->category_id == 11): ?>
+                    <a href="<?= Yii::app()->createUrl('/site/day_of_news'); ?>"><?= Yii::app()->language == 'ru' ? $model->category->title_ru : $model->category->title_uk; ?></a> 
+                    <?php else: ?>
+                    <a href="<?= Yii::app()->createUrl('/site/category', array('alias'=>$model->category->alias)); ?>"><?= Yii::app()->language == 'ru' ? $model->category->title_ru : $model->category->title_uk; ?></a> 
+                    <?php endif; ?>
+                    <span><?= $this->getStringDate($model->date); ?> &nbsp;
+                    <i class="fa fa-eye"></i> <?= (int)$model->views; ?></span>
                 </h4>
                 <div class="socialShare">
                     <script type="text/javascript">(function() {

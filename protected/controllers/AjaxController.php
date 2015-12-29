@@ -42,11 +42,11 @@ class AjaxController extends Controller
         {
             $lastDate = isset($_POST['lastDate']) ? $_POST['lastDate'] : '';
             $sql="
-        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM news n INNER JOIN category c ON n.category_id = c.id)
+        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM news n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11)
             UNION
-        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM video n INNER JOIN category c ON n.category_id = c.id)
+        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM video n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11)
             UNION
-        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM photo_category n INNER JOIN category c ON n.category_id = c.id)
+        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM photo_category n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11)
             ORDER BY  `date` DESC LIMIT ".$_POST['count'].",5";
             $connection = Yii::app()->db;
             $command = $connection->createCommand($sql);
@@ -172,11 +172,11 @@ class AjaxController extends Controller
     {
         $result = '';
         $sql="
-        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM news n INNER JOIN category c ON n.category_id = c.id)
+        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM news n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11)
             UNION
-        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM video n INNER JOIN category c ON n.category_id = c.id)
+        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM video n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11)
             UNION
-        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM photo_category n INNER JOIN category c ON n.category_id = c.id)
+        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM photo_category n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11)
             ORDER BY  `date` DESC LIMIT 15";
         $connection = Yii::app()->db;
         $command = $connection->createCommand($sql);
@@ -202,11 +202,11 @@ class AjaxController extends Controller
     {
         if(Yii::app()->request->isAjaxRequest) {
             $sql = "
-        (SELECT n.short_ru, n.short_uk, n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM news n INNER JOIN category c ON n.category_id = c.id)
+        (SELECT n.short_ru, n.short_uk, n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM news n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11)
             UNION
-        (SELECT n.short_ru, n.short_uk, n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM video n INNER JOIN category c ON n.category_id = c.id)
+        (SELECT n.short_ru, n.short_uk, n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM video n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11)
             UNION
-        (SELECT n.short_ru, n.short_uk, n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM photo_category n INNER JOIN category c ON n.category_id = c.id)
+        (SELECT n.short_ru, n.short_uk, n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM photo_category n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11)
             ORDER BY  `date` DESC LIMIT " . $_POST['count'] . ",8";
             $connection = Yii::app()->db;
             $command = $connection->createCommand($sql);
@@ -217,6 +217,7 @@ class AjaxController extends Controller
 
     public function actionMoreAllNews()
     {
+
         $criteria = new CDbCriteria();
         $criteria->offset = $_POST['count'];
         $criteria->limit = 6;
@@ -227,8 +228,16 @@ class AjaxController extends Controller
             $criteria->params = array(':cat'=>$_POST['category']);
         }
 
+        if(isset($_POST['date'])){
+            $criteria->distinct = true;
+            $criteria->condition='date >= :date_start AND date <= :date_end';
+            $criteria->params = array(':date_start'=>$_GET['date'].' 00.00.00', ':date_end'=>$_GET['date'].' 23.59.59');
+            $criteria->order = 'date DESC';
+        }
+
         $news = News::model()->findAll($criteria);
         $this->renderPartial('moreAllNews', array('news'=>$news));
+        
     }
     public function actionMoreAllPhotos()
     {
@@ -242,6 +251,13 @@ class AjaxController extends Controller
             $criteria->params = array(':cat'=>$_POST['category']);
         }
 
+        if(isset($_POST['date'])){
+            $criteria->distinct = true;
+            $criteria->condition='date >= :date_start AND date <= :date_end';
+            $criteria->params = array(':date_start'=>$_GET['date'].' 00.00.00', ':date_end'=>$_GET['date'].' 23.59.59');
+            $criteria->order = 'date DESC';
+        }
+
         $photoCategories = PhotoCategory::model()->findAll($criteria);
         $this->renderPartial('moreAllPhotos', array('photoCategories'=>$photoCategories));
     }
@@ -249,12 +265,21 @@ class AjaxController extends Controller
     {
         $criteria = new CDbCriteria();
         $criteria->offset = $_POST['count'];
+        $criteria->condition = 'category_id != :category_id';
         $criteria->limit = 3;
         $criteria->order = 'date DESC';
+        $criteria->params = array(':category_id'=>11);
 
         if(isset($_POST['category'])) {
             $criteria->condition = 'category_id = :cat';
             $criteria->params = array(':cat'=>$_POST['category']);
+        }
+
+        if(isset($_POST['date'])){
+            $criteria->distinct = true;
+            $criteria->condition='date >= :date_start AND date <= :date_end';
+            $criteria->params = array(':date_start'=>$_GET['date'].' 00.00.00', ':date_end'=>$_GET['date'].' 23.59.59');
+            $criteria->order = 'date DESC';
         }
 
         $videos = Video::model()->findAll($criteria);

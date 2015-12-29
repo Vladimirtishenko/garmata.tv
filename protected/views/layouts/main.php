@@ -111,6 +111,7 @@
                 ); ?>
                 <ul class="outDropDown">
                     <?php foreach(Category::model()->findAll() as $category): ?>
+                        <?php if($category->id != 11): ?>
                         <li>
                             <?= CHtml::link(Yii::app()->language == 'ru' ? $category->title_ru : $category->title_uk, array('/site/category', 'alias'=>$category->alias)); ?>
                             <ul class="inDrop">
@@ -151,13 +152,14 @@
                                 </li>
                             </ul>
                         </li>
+                    <?php endif; ?>
                     <?php endforeach; ?>
 
                     <li>
                         <a href="<?= Yii::app()->createUrl('/site/videos'); ?>"><?= Yii::t('main', 'Відео'); ?></a>
                         <ul class="inDrop">
                             <li>
-                                <?php $lastVideo = Video::model()->find(array('order'=>'id DESC' /*, 'condition'=>'category_id = :category_id', 'params'=>array(':category_id'=>$category->id)*/)); ?>
+                                <?php $lastVideo = Video::model()->find(array('order'=>'id DESC', 'condition'=>'category_id != :category_id', 'params'=>array(':category_id'=>11)  /*, 'condition'=>'category_id = :category_id', 'params'=>array(':category_id'=>$category->id)*/)); ?>
                                 <a href="<?= Yii::app()->createUrl('/site/video', array('id'=>$lastVideo->id)); ?>" class="menuOuterImg">
                                     <img src="<?= Yii::app()->baseUrl.'/uploads/video/'.$lastVideo->image; ?>" alt="">
                                 </a>
@@ -173,7 +175,7 @@
                             <li>
                                 <div class="helpersPhoto"></div>
                                 <div class="rightPhoto">
-                                    <?php $lastPhotos = Video::model()->findAll(array('limit'=>2, 'offset'=>1, 'order'=>'id DESC'));?>
+                                    <?php $lastPhotos = Video::model()->findAll(array('limit'=>2, 'offset'=>1, 'order'=>'id DESC', 'condition'=>'category_id != :category_id', 'params'=>array(':category_id'=>11)));?>
                                     <?php foreach($lastPhotos as $photo): ?>
                                         <div class="discrPhoto">
                                             <span><?= $this->getStringDate($photo->date); ?> &nbsp;
@@ -418,7 +420,7 @@
         <div>
             <div>
                 <h1><?= CHtml::link(Yii::t('main', 'Відеозаписи'), array('/site/videos')); ?></h1>
-                <?php $news = Video::model()->find(array('order'=>'date DESC')); ?>
+                <?php $news = Video::model()->find(array('order'=>'date DESC', 'condition'=>'category_id != :category_id', 'params'=>array(':category_id'=>11))); ?>
                 <span>
                     <?= CHtml::link(Yii::app()->language == 'ru' ? $news->title_ru : $news->title_uk, array('/site/videos', 'id'=>$news->id)); ?>
                 </span>
@@ -457,6 +459,7 @@
 <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/lib/production.min.js',CClientScript::POS_END, array('async'=>true)); ?>
 <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/lib/currency.js',CClientScript::POS_END); ?>
 <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/lib/weather.js',CClientScript::POS_END); ?>
+<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/lib/seen_to_video.js',CClientScript::POS_END); ?>
  <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
