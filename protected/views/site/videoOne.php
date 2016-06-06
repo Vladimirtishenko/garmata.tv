@@ -99,7 +99,19 @@ $this->metaAttributes[]  = '<meta property="vk:image" content="http://garmata.tv
                         <p>Просмотры <span><i class="fa fa-eye"></i> <?= (int)$model->views; ?></span><p>Автор: <span>Garmata.tv</span></p>
                     </div>
                 </div>
-
+                <div id="GNM3203" style="text-align:center; display:none; margin: 20px 0;" ><a href="http://www.novostimira.com.ua" id="GNM3203t" style="display:none" target="_blank"><strong>Новости</strong></a></div>
+                 <div class="google-market">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- garmata response -news -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-2479511460292648"
+                         data-ad-slot="5642837217"
+                         data-ad-format="auto"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
                 <div id="disqus_thread"></div>
                 <script type="text/javascript">
                     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -112,11 +124,30 @@ $this->metaAttributes[]  = '<meta property="vk:image" content="http://garmata.tv
                         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
                     })();
                 </script>
+                <div id="traffim-widget-416"></div>
+                <script language="javascript" type="text/javascript">
+                    (function() {
+                    var useSSL = 'https:' == document.location.protocol;
+                    var traffim = document.createElement('script');
+                    traffim.type = 'text/javascript'; traffim.async = true;traffim.charset = 'UTF-8';
+                    traffim.src = (useSSL ? 'https:' : 'http:') + '//ua.traffim.com/load/416.js';
+                    var nrvrscr = document.getElementsByTagName('script')[0];
+                    nrvrscr.parentNode.insertBefore(traffim, nrvrscr);
+                    })();
+                </script>
                 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-                
-
-                <div class="-reclama" id="n4p_30721"></div>
-
+                 <div class="google-market">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- garmata after discus -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-2479511460292648"
+                         data-ad-slot="8177501218"
+                         data-ad-format="auto"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
                 <div class="seenAll">
                     <hr>
                     <h1><?= Yii::t('main', 'Дивіться також'); ?></h1>
@@ -143,10 +174,45 @@ $this->metaAttributes[]  = '<meta property="vk:image" content="http://garmata.tv
 
             </div>
 
-            <div class="allmini pageWithoutTop">
+            <div class="allmini pageWithoutTop this-tab-margin">
                 <?php $this->widget('application.components.widgets.StreemsWidget'); ?>
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- garmata left -->
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:300px;height:250px"
+                     data-ad-client="ca-pub-2479511460292648"
+                     data-ad-slot="3247774015"></ins>
+                <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+                <div class="-reclama" id="n4p_30721"></div>
                 <?php $this->widget('application.components.widgets.AllNewsWidget', array('limit'=>50, 'showPictures'=>false)); ?>
+                <div class="google-market-top-side">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- Grmata news Line full 600 -->
+                    <ins class="adsbygoogle"
+                         style="display:inline-block;width:300px;height:600px"
+                         data-ad-client="ca-pub-2479511460292648"
+                         data-ad-slot="8528924812"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
             </div>
         </div>
     </section>
 </div>
+<script type="text/javascript">
+  var el = document.getElementById('GNM3203');
+  if (el) {
+    if (document.getElementById('GNM3203t').style.display == 'none') {
+      document.getElementById('GNM3203t').style.display = '';
+      var dateNM = new Date();
+      var t = Math.floor(dateNM.getTime()/(1000*600));
+      var NMces=document.createElement('script');
+      NMces.type = 'text/javascript';
+      NMces.src='http'+(window.location.protocol=='https:'?'s':'')+'://g.novostimira.biz/l/3203?v='+t;
+      el.parentNode.appendChild(NMces);
+    }
+}
+</script>

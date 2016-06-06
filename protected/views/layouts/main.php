@@ -36,6 +36,51 @@
     <!-- <link rel="stylesheet" href="<?= Yii::app()->baseUrl; ?>/prodaction/default.min.css"> -->
 </head>
 <body>
+<style>
+    .rt_photo_30721{
+        width: 138px !important;
+        height: initial !important;
+        box-shadow: none !important;
+        background: transparent !important;
+    }
+    
+    .rt_photo_30721 img {
+        width: 140px!important;
+        height: 150px!important;
+    }
+
+    .rt_table_30721{
+        width: 300px !important;
+    }
+
+    .rt_title_30721{
+        font-size: 14px !important;
+        font-weight: normal !important;
+        font-family: Georgia !important;
+    }
+    .google-market{
+        display: table;
+        margin: 10px auto;
+        width: 100%;
+        padding: 0 0 10px;
+    }
+    .google-market-top{
+        display: table;
+        margin: 35px auto -10px;
+        width: 100%;
+    }
+    .google-market-top-side{
+        display: table;
+        padding: 30px 0;
+        width: 100%;
+    }
+    .this-tab-margin .tabsStream{
+        margin-bottom: 0 !important;
+    }
+    .banners-garmata-top-image{
+        width: 100%;
+    }
+</style>
 <div class="popUpAbout">
     <?php $info = Pages::model()->findByPk(1); ?>
     <div class="contentAbout">
@@ -486,12 +531,6 @@
     setTimeout(function(){
       var link = m.querySelectorAll("a");
       var block = m.querySelectorAll("div");
-      for (var i = 0; i < link.length; i++) {
-          link[i].style.cssText = "font-family: Georgia !important; font-weight: 400 !important; font-size: 16px !important;"
-      };
-      for (var j = 0; j < block.length; j++) {
-          block[j].style.cssText = "background: transparent !important; box-shadow: none !important; border: none !important;"
-      };
       m.style.display = "block";
       setTimeout(function(){m.style.opacity = 1},300)
     },1000)

@@ -11,6 +11,7 @@ $this->metaAttributes[]  = '<meta property="vk:image" content="http://garmata.tv
 ?>
 <div class="outerSectionMain">
     <section class="main indexPage">
+    	<a href="http://garmata.tv/uk/site/video/1144.html" target="_blank" class="banners-garmata-top" style="width: 1000px; margin-bottom: 35px; display: table;"><?= CHtml::image(Yii::app()->baseUrl.'/images/Animation.gif', '', array('class'=>'banners-garmata-top-image')) ?></a>
         <div class="outerLevel1">
             <div class="videoBlock">
                 <hr>
@@ -60,9 +61,31 @@ $this->metaAttributes[]  = '<meta property="vk:image" content="http://garmata.tv
 
             </div>
         </div>
+        <div class="google-market-top">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-2479511460292648"
+                 data-ad-slot="3886902413"
+                 data-ad-format="auto"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
         <div class="outerLevel2">
             <?php $this->widget('application.components.widgets.AllNewsWidget', array('limit'=>30, 'justNews'=>true)); ?>
             <?php $this->widget('application.components.widgets.PhotoNewsWidget'); ?>
+        </div>
+        <div class="google-market-top">
+           <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-2479511460292648"
+                 data-ad-slot="5363635613"
+                 data-ad-format="auto"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
         <div class="materials">
             <hr>
@@ -128,6 +151,18 @@ $this->metaAttributes[]  = '<meta property="vk:image" content="http://garmata.tv
                     </div>
                 <?php endforeach; ?>
             </div>
+        </div>
+        <div class="google-market-top">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- garmata after three block -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-2479511460292648"
+                 data-ad-slot="3747301613"
+                 data-ad-format="auto"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
     </section>
 </div>

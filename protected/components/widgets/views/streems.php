@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * @var $this StreemsWidget
  * @var $streems[] Streem
@@ -11,13 +11,13 @@
         <nav class="tab-nav" data-tab-nav="" role="tablist">
             <ul>
                 <li>
-                    <a href="javascript:;" class="button is-active" role="tab" id="toolkit-tab-2-tab-0" aria-controls="toolkit-tab-2-section-0" aria-selected="true" aria-expanded="true"><?= Yii::t('main', 'Сьогодні'); ?></a>
+                    <a href="javascript:;" class="button is-active" role="tab" id="toolkit-tab-2-tab-0" aria-controls="toolkit-tab-2-section-0" aria-selected="true" aria-expanded="true"><?= Yii::t('main', 'Новина'); ?> 1</a>
                     <span>
                         <i class="fa fa-star hoverIco"></i>
                     </span>
                 </li>
                 <li>
-                    <a href="javascript:;" class="button" role="tab" id="toolkit-tab-2-tab-1" aria-controls="toolkit-tab-2-section-1" aria-selected="false" aria-expanded="false"><?= Yii::t('main', 'Вчора'); ?></a>
+                    <a href="javascript:;" class="button" role="tab" id="toolkit-tab-2-tab-1" aria-controls="toolkit-tab-2-section-1" aria-selected="false" aria-expanded="false"><?= Yii::t('main', 'Новина'); ?> 2</a>
                 </li>
             </ul>
         </nav>
@@ -42,13 +42,13 @@
                          <?= CHtml::image(Yii::app()->baseUrl.'/uploads/video/'.$value['image']); ?>
                      <?php endif; ?>
                      </div>
-                     <p>
+                     <p data-hide="<?=$value['title_uk'];?>">
                      <?php if($value['type'] == 'news'): ?>
-                         <?= CHtml::encode(Yii::app()->controller->getShortDescription((Yii::app()->language == 'ru') ? $value['title_ru'] : $value['title_uk'], 100)); ?>
+                         <?= CHtml::encode(Yii::app()->controller->getShortDescription((Yii::app()->language == 'ru') ? $value['title_ru'] : $value['title_uk'], 200)); ?>
                      <?php elseif($value['type'] == 'photo'): ?>
-                         <?= CHtml::encode(Yii::app()->controller->getShortDescription((Yii::app()->language == 'ru') ? $value['title_ru'] : $value['title_uk'], 100)); ?>
+                         <?= CHtml::encode(Yii::app()->controller->getShortDescription((Yii::app()->language == 'ru') ? $value['title_ru'] : $value['title_uk'], 200)); ?>
                      <?php elseif($value['type'] == 'video'): ?>
-                         <?= CHtml::encode(Yii::app()->controller->getShortDescription((Yii::app()->language == 'ru') ? $value['title_ru'] : $value['title_uk'], 100)); ?>
+                         <?= CHtml::encode(Yii::app()->controller->getShortDescription((Yii::app()->language == 'ru') ? $value['title_ru'] : $value['title_uk'], 200)); ?>
                      <?php endif; ?>
                      
                      </p>

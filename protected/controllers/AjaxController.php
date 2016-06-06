@@ -228,7 +228,7 @@ class AjaxController extends Controller
             $criteria->params = array(':cat'=>$_POST['category']);
         }
 
-        if(isset($_POST['date'])){
+          if(!empty($_POST['date'])){
             $criteria->distinct = true;
             $criteria->condition='date >= :date_start AND date <= :date_end';
             $criteria->params = array(':date_start'=>$_GET['date'].' 00.00.00', ':date_end'=>$_GET['date'].' 23.59.59');
@@ -241,6 +241,7 @@ class AjaxController extends Controller
     }
     public function actionMoreAllPhotos()
     {
+
         $criteria = new CDbCriteria();
         $criteria->offset = $_POST['count'];
         $criteria->limit = 3;
@@ -251,7 +252,7 @@ class AjaxController extends Controller
             $criteria->params = array(':cat'=>$_POST['category']);
         }
 
-        if(isset($_POST['date'])){
+        if(!empty($_POST['date'])){
             $criteria->distinct = true;
             $criteria->condition='date >= :date_start AND date <= :date_end';
             $criteria->params = array(':date_start'=>$_GET['date'].' 00.00.00', ':date_end'=>$_GET['date'].' 23.59.59');
@@ -275,7 +276,7 @@ class AjaxController extends Controller
             $criteria->params = array(':cat'=>$_POST['category']);
         }
 
-        if(isset($_POST['date'])){
+         if(!empty($_POST['date'])){
             $criteria->distinct = true;
             $criteria->condition='date >= :date_start AND date <= :date_end';
             $criteria->params = array(':date_start'=>$_GET['date'].' 00.00.00', ':date_end'=>$_GET['date'].' 23.59.59');
