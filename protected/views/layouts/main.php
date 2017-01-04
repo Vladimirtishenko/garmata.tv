@@ -37,6 +37,19 @@
 </head>
 <body>
 <style>
+    .garmata-development {
+        text-align: left;
+        cursor: pointer;
+    }
+    .garmata-development a, .garmata-text-development {
+        display: inline-block;
+        vertical-align: middle;
+        padding: 0 5px 0 0;
+        color: #333;
+    }
+    .garmata-development a{
+        padding-top: 4px;
+    }
     .rt_photo_30721{
         width: 138px !important;
         height: initial !important;
@@ -375,20 +388,10 @@
 <div class="-market-link" style="display:none"><a href="http://garmata.tv/uk/site/video/769.html" target="_blank"><img src="http://garmata.tv/images/garmata-baner.gif" alt=""></a></div>
 
 <?= $content; ?>
-
-<div class="linkator">
-    <p><?= Yii::t('main', 'Дивитися на ukr.net: '); ?></p>
-    <?php
-        include($_SERVER['DOCUMENT_ROOT'].'/linkator_ukrnet/links.php');
-        echo makeUkrnetLink();
-    ?>
-</div>
-
 <footer>
     <div class="footer">
         <div>
             <p><b> 2015 Інтернет-телебачення Чернігова Garmata TV.</b><br> При будь-якому використанні матеріалів гіперпосилання на <a href="http://garmata.tv">Garmata.tv</a> є обов'язковим. </p>
-            <p>Передрук в газетах і електронних ЗМІ - виключно за наявності письмової угоди з Редакцією! </p>
             <p>Email: <a href="mailto: news@garmata.tv">news@garmata.tv</a></p>
             <div class="forTopButton">
                 <button>Реклама</button>
@@ -396,7 +399,11 @@
             </div>
             <p><i class="fa fa-exclamation-triangle"></i>Допускається цитування матеріалів сайту з обовязковим прямим, відкритим для пошукових систем гіперпосиланням на <a href="http://garmata.tv">Garmata.tv</a></p>
             <p>Матеріали з позначкою <b>"Р"</b> - публікуються на правах реклами.</p>
-
+            <div class="garmata-development">   
+                <span class="garmata-text-development">Розробка сайту</span>
+                <a target="_blank" href="http://4side.in.ua">
+                    <img src="/images/4side.png" alt="4side development">                    </a>
+            </div>
         </div>
         <div>
             <div>
@@ -502,8 +509,6 @@
 </footer>
 <?php Yii::app()->clientScript->registerCoreScript('jquery',CClientScript::POS_END, array('async'=>true)); ?>
 <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/lib/production.min.js',CClientScript::POS_END, array('async'=>true)); ?>
-<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/lib/currency.js',CClientScript::POS_END); ?>
-<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/lib/weather.js',CClientScript::POS_END); ?>
 <?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/lib/seen_to_video.js',CClientScript::POS_END); ?>
  <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

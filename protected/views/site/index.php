@@ -11,7 +11,6 @@ $this->metaAttributes[]  = '<meta property="vk:image" content="http://garmata.tv
 ?>
 <div class="outerSectionMain">
     <section class="main indexPage">
-    	<a href="http://garmata.tv/uk/site/video/1144.html" target="_blank" class="banners-garmata-top" style="width: 1000px; margin-bottom: 35px; display: table;"><?= CHtml::image(Yii::app()->baseUrl.'/images/Animation.gif', '', array('class'=>'banners-garmata-top-image')) ?></a>
         <div class="outerLevel1">
             <div class="videoBlock">
                 <hr>
