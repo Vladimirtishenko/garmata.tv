@@ -6,6 +6,8 @@ autoprefixer = require('gulp-autoprefixer'),
 imageminJpegtran = require('imagemin-jpegtran'),
 imageminOptipng = require('imagemin-optipng'),
 imagemin = require('gulp-imagemin'),
+debug = require('gulp-debug'),
+gutil = require('gulp-util'),
 pngquant = require('imagemin-pngquant');
 
 gulp.task('css', function () {
@@ -31,99 +33,123 @@ gulp.task('watch', function(){
 
 gulp.task('allAlbumPng', function () {
     return gulp.src('uploads/galery/album/*.png')
+        .pipe(debug())
         .pipe(imageminOptipng({optimizationLevel: 6})())
+        .on('error', gutil.log)
         .pipe(gulp.dest('uploads/galery/album/'));
 });
 
 gulp.task('allAlbum', function () {
     return gulp.src('uploads/galery/album/*')
+        .pipe(debug())
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()]
         }))
+        .on('error', gutil.log)
         .pipe(gulp.dest('uploads/galery/album/'));
 });
 
 gulp.task('allCategoryPng', function () {
     return gulp.src('uploads/galery/category/*.png')
+        .pipe(debug())
         .pipe(imageminOptipng({optimizationLevel: 6})())
+        .on('error', gutil.log)
         .pipe(gulp.dest('uploads/galery/category/'));
 });
 
 gulp.task('allCategoryAlbum', function () {
     return gulp.src('uploads/galery/category/*')
+        .pipe(debug())
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()]
         }))
+        .on('error', gutil.log)
         .pipe(gulp.dest('uploads/galery/category/'));
 });
 
 gulp.task('allVideoPng', function () {
     return gulp.src('uploads/video/*.png')
+        .pipe(debug())
         .pipe(imageminOptipng({optimizationLevel: 6})())
+        .on('error', gutil.log)
         .pipe(gulp.dest('uploads/video/'));
 });
 
 gulp.task('allVideo', function () {
     return gulp.src('uploads/video/*')
+        .pipe(debug())
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()]
         }))
+        .on('error', gutil.log)
         .pipe(gulp.dest('uploads/video/'));
 });
 
 
 gulp.task('allBodyNewsPng', function () {
     return gulp.src('uploads/newsimages/*.png')
+        .pipe(debug())
         .pipe(imageminOptipng({optimizationLevel: 6})())
+        .on('error', gutil.log)
         .pipe(gulp.dest('uploads/newsimages/'));
 });
 
 gulp.task('allBodyNews', function () {
     return gulp.src('uploads/newsimages/*')
+        .pipe(debug())
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()]
         }))
+        .on('error', gutil.log)
         .pipe(gulp.dest('uploads/newsimages/'));
 });
 
 
 gulp.task('allNewsThumbPng', function () {
     return gulp.src('uploads/news/thumb/*.png')
+        .pipe(debug())
         .pipe(imageminOptipng({optimizationLevel: 6})())
+        .on('error', gutil.log)
         .pipe(gulp.dest('uploads/news/thumb/'));
 });
 
 gulp.task('allNewsThumb', function () {
     return gulp.src('uploads/news/thumb/*')
+        .pipe(debug())
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()]
         }))
+        .on('error', gutil.log)
         .pipe(gulp.dest('uploads/news/thumb/'));
 });
 
 gulp.task('allNewsFullPng', function () {
     return gulp.src('uploads/news/full/*.png')
+        .pipe(debug())
         .pipe(imageminOptipng({optimizationLevel: 6})())
+        .on('error', gutil.log)
         .pipe(gulp.dest('uploads/news/full/'));
 });
 
 gulp.task('allNewsFull', function () {
     return gulp.src('uploads/news/full/*')
+        .pipe(debug())
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()]
         }))
+        .on('error', gutil.log)
         .pipe(gulp.dest('uploads/news/full/'));
 });
 
