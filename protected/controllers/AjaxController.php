@@ -31,7 +31,13 @@ class AjaxController extends Controller
 
     public function actionMoreNews()
     {
-        $allNews = News::model()->findAll(array('order'=>'date DESC', 'limit'=>$_GET['limit']));
+        $allNews = News::model()->findAll(array(
+            'order'=>'date DESC', 
+            'limit'=>$_GET['limit'],
+            'condition'=>'date < :now',
+            'params'=>array(':now'=>date("Y-m-d H:i:s",time()+3600))
+
+        ));
         $limit = $_GET['limit'] + 10;
         $this->renderPartial('moreNews', array('allNews'=>$allNews, 'limit'=>$limit), false, true);
     }
@@ -40,13 +46,15 @@ class AjaxController extends Controller
     {
         if(Yii::app()->request->isAjaxRequest)
         {
+            $date = date('Y-m-d H:i:s',time()+3600);
+
             $lastDate = isset($_POST['lastDate']) ? $_POST['lastDate'] : '';
             $sql="
-        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM news n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11)
+        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM news n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11 AND n.date < '".$date."')
             UNION
-        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM video n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11)
+        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM video n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11 AND n.date < '".$date."')
             UNION
-        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM photo_category n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11)
+        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM photo_category n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11 AND n.date < '".$date."')
             ORDER BY  `date` DESC LIMIT ".$_POST['count'].",5";
             $connection = Yii::app()->db;
             $command = $connection->createCommand($sql);
@@ -60,10 +68,11 @@ class AjaxController extends Controller
     {
         if(Yii::app()->request->isAjaxRequest)
         {
+            $date = date('Y-m-d H:i:s',time()+3600);
             $lastDate = isset($_POST['lastDate']) ? $_POST['lastDate'] : '';
             $sql="
             SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk 
-            FROM news n INNER JOIN category c ON n.category_id = c.id
+            FROM news n INNER JOIN category c ON n.category_id = c.id WHERE n.date < '".$date."'
             ORDER BY  `date` DESC LIMIT ".$_POST['count'].",5";
             $connection = Yii::app()->db;
             $command = $connection->createCommand($sql);
@@ -171,12 +180,13 @@ class AjaxController extends Controller
     protected function findNews()
     {
         $result = '';
+        $date = date('Y-m-d H:i:s',time()+3600);
         $sql="
-        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM news n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11)
+        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM news n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11 AND  n.date < '".$date."')
             UNION
-        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM video n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11)
+        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM video n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11 AND  n.date < '".$date."')
             UNION
-        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM photo_category n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11)
+        (SELECT n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM photo_category n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11 AND  n.date < '".$date."')
             ORDER BY  `date` DESC LIMIT 15";
         $connection = Yii::app()->db;
         $command = $connection->createCommand($sql);
@@ -201,12 +211,13 @@ class AjaxController extends Controller
     public function actionPublications()
     {
         if(Yii::app()->request->isAjaxRequest) {
+            $date = date('Y-m-d H:i:s',time()+3600);
             $sql = "
-        (SELECT n.short_ru, n.short_uk, n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM news n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11)
+        (SELECT n.short_ru, n.short_uk, n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM news n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11 AND n.date < '".$date."')
             UNION
-        (SELECT n.short_ru, n.short_uk, n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM video n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11)
+        (SELECT n.short_ru, n.short_uk, n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM video n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11 AND n.date < '".$date."')
             UNION
-        (SELECT n.short_ru, n.short_uk, n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM photo_category n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11)
+        (SELECT n.short_ru, n.short_uk, n.id, n.title_uk, n.title_ru, n.date, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM photo_category n INNER JOIN category c ON n.category_id = c.id WHERE n.category_id != 11 AND n.date < '".$date."')
             ORDER BY  `date` DESC LIMIT " . $_POST['count'] . ",8";
             $connection = Yii::app()->db;
             $command = $connection->createCommand($sql);
@@ -260,6 +271,7 @@ class AjaxController extends Controller
         }
 
         $photoCategories = PhotoCategory::model()->findAll($criteria);
+        var_dump($photoCategories);
         $this->renderPartial('moreAllPhotos', array('photoCategories'=>$photoCategories));
     }
     public function actionMoreAllVideos()

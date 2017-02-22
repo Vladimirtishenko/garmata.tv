@@ -83,23 +83,25 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+        $date = date('Y-m-d H:i:s',time()+3600);
 
         $sql="
-        (SELECT n.id, n.title_uk, n.title_ru, n.short_ru, n.short_uk, n.date, n.category_id, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM news n INNER JOIN category c ON n.category_id = c.id)
+        (SELECT n.id, n.title_uk, n.title_ru, n.short_ru, n.short_uk, n.date, n.category_id, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM news n INNER JOIN category c ON n.category_id = c.id WHERE n.date < '".$date."')
             UNION
-        (SELECT n.id, n.title_uk, n.title_ru, n.short_ru, n.short_uk, n.date, n.category_id, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM video n INNER JOIN category c ON n.category_id = c.id)
+        (SELECT n.id, n.title_uk, n.title_ru, n.short_ru, n.short_uk, n.date, n.category_id, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM video n INNER JOIN category c ON n.category_id = c.id WHERE n.date < '".$date."')
             UNION
-        (SELECT n.id, n.title_uk, n.title_ru, n.short_ru, n.short_uk, n.date, n.category_id, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM photo_category n INNER JOIN category c ON n.category_id = c.id)
-            ORDER BY  `date` DESC LIMIT 12";
+        (SELECT n.id, n.title_uk, n.title_ru, n.short_ru, n.short_uk, n.date, n.category_id, type, reclame, n.image, n.views, c.alias AS category_alias, c.title_ru AS category_title_ru, c.title_uk AS category_title_uk FROM photo_category n INNER JOIN category c ON n.category_id = c.id WHERE n.date < '".$date."')
+        ORDER BY  `date` DESC LIMIT 12";
+
         $connection = Yii::app()->db;
         $command = $connection->createCommand($sql);
         $lastNews = $command->queryAll();
 
         $criteria = new CDbCriteria();
-        $criteria->condition = 'category_id != :category_id';
+        $criteria->condition = 'category_id != :category_id AND date < :now';
         $criteria->order = 'date DESC';
         $criteria->limit = 5;
-        $criteria->params = array(':category_id'=>11);
+        $criteria->params = array(':category_id'=>11, ':now'=>date("Y-m-d H:i:s",time()+3600));
 
         $lastVideos = Video::model()->findAll($criteria);
         $this->render('index', array(
@@ -117,10 +119,7 @@ class SiteController extends Controller
             $criteria = new CDbCriteria();
             $criteria->distinct = true;
 
-            if(Yii::app()->language == 'ru')
-                $criteria->condition = 'title_ru LIKE :keyword OR description_ru LIKE :keyword';
-            else
-                $criteria->condition = 'title_uk LIKE :keyword OR description_uk LIKE :keyword';
+            $criteria->condition = 'title_'.Yii::app()->language.' LIKE :keyword OR description_'.Yii::app()->language.' LIKE :keyword';
 
             $criteria->order = 'date DESC';
             $criteria->params = array(':keyword'=>'%'.$keyword.'%');
@@ -143,9 +142,25 @@ class SiteController extends Controller
 
     public function actionAllNews()
     {
-        $news = News::model()->findAll(array('order'=>'date DESC', 'limit'=>6));
-        $photoCategories = PhotoCategory::model()->findAll(array('order'=>'date DESC', 'limit'=>3));
-        $videos = Video::model()->findAll(array('order'=>'date DESC', 'limit'=>3, 'condition'=>'category_id != :category_id', 'params'=>array(':category_id'=>11)));
+        $news = News::model()->findAll(array(
+            'order'=>'date DESC', 
+            'limit'=>6, 
+            'condition'=>'date < :now',
+            'params'=>array(':now'=>date("Y-m-d H:i:s",time()+3600))));
+
+        $photoCategories = PhotoCategory::model()->findAll(array(
+            'order'=>'date DESC', 
+            'limit'=>3,
+            'condition'=>'date < :now',
+            'params'=>array(':now'=>date("Y-m-d H:i:s",time()+3600))));
+
+        $videos = Video::model()->findAll(array(
+            'order'=>'date DESC', 
+            'limit'=>3, 
+            'condition'=>'category_id != :category_id AND date < :now',
+            'params'=>array(':category_id'=>11, ':now'=>date("Y-m-d H:i:s",time()+3600))));
+
+
         $this->render('allNews', array(
             'news'=>$news,
             'photoCategories'=>$photoCategories,
@@ -158,8 +173,9 @@ class SiteController extends Controller
         $data = new CActiveDataProvider('Video',
             array(
                 'criteria'=>array(
-                	'condition'=> 'category_id != 11',
+                	'condition'=> 'category_id != 11 AND date < :now',
                     'order'=>'id DESC',
+                    'params'=>array(':now'=>date("Y-m-d H:i:s",time()+3600)),
                 ),
                 'sort'=>false,
                 'pagination'=>array(
@@ -168,10 +184,10 @@ class SiteController extends Controller
             ));
 
         $criteria = new CDbCriteria();
-        $criteria->condition = 'category_id != :category_id';
+        $criteria->condition = 'category_id != :category_id AND date < :now';
         $criteria->order = 'date DESC';
         $criteria->limit = 4;
-        $criteria->params = array(':category_id'=>11);
+        $criteria->params = array(':category_id'=>11, ':now'=>date("Y-m-d H:i:s",time()+3600));
 
         $lastVideos = Video::model()->findAll($criteria);
 
@@ -183,8 +199,9 @@ class SiteController extends Controller
         $data = new CActiveDataProvider('Video',
             array(
                 'criteria'=>array(
-                	'condition'=> 'category_id = 11',
-                    'order'=>'id DESC'
+                	'condition'=> 'category_id = 11 AND date < :now',
+                    'order'=>'id DESC',
+                    'params'=>array(':now'=>date("Y-m-d H:i:s",time()+3600))
                 ),
                 'sort'=>false,
                 'pagination'=>array(
@@ -201,7 +218,13 @@ class SiteController extends Controller
         $model = Video::model()->findByPk($id);
         $model->views ++;
         $model->save();
-        $relatedVideos = Video::model()->findAll(array('order'=>'date DESC', 'limit'=>6, 'condition'=>'id != :id', 'params'=>array(':id'=>$id)));
+        $relatedVideos = Video::model()->findAll(array(
+            'order'=>'date DESC', 
+            'limit'=>6, 
+            'condition'=>'id != :id AND date < :now', 
+            'params'=>array(':id'=>$id, ':now'=>date("Y-m-d H:i:s",time()+3600))));
+        
+
         $this->rightReclameId = 22;
         $this->render('videoOne', array('model'=>$model, 'relatedVideos'=>$relatedVideos));
     }
@@ -218,7 +241,7 @@ class SiteController extends Controller
             $category->save();
             $photos = Photo::model()->findAll($criteria);
 
-            $relatedPhotos = PhotoCategory::model()->findAll(array('order'=>'date DESC', 'limit'=>4, 'condition'=>'id != :id', 'params'=>array(':id'=>$id)));
+            $relatedPhotos = PhotoCategory::model()->findAll(array('order'=>'date DESC', 'limit'=>4, 'condition'=>'id != :id AND date < :now', 'params'=>array(':id'=>$id, ':now'=>date("Y-m-d H:i:s",time()+3600))));
 
             $this->render('single_album', array('photos'=>$photos, 'category'=>$category, 'relatedPhotos'=>$relatedPhotos));
         }
@@ -228,8 +251,10 @@ class SiteController extends Controller
             $data = new CActiveDataProvider('PhotoCategory',
                 array(
                     'criteria'=>array(
+                        'condition'=>'date < :now', 
                         'order'=>'id DESC',
                         'offset'=>4,
+                        'params'=>array(':now'=>date("Y-m-d H:i:s",time()+3600))
                     ),
                     'sort'=>false,
                     'pagination'=>array(
@@ -248,9 +273,27 @@ class SiteController extends Controller
     public function actionCategory($alias)
     {
         $category = Category::model()->find('alias = :alias', array(':alias'=>$alias));
-        $news = News::model()->findAll(array('order'=>'date DESC', 'limit'=>6, 'condition'=>'category_id = :category_id', 'params'=>array(':category_id'=>$category->id)));
-        $photoCategories = PhotoCategory::model()->findAll(array('order'=>'date DESC', 'limit'=>6, 'condition'=>'category_id = :category_id', 'params'=>array(':category_id'=>$category->id)));
-        $videos = Video::model()->findAll(array('order'=>'date DESC', 'limit'=>6, 'condition'=>'category_id = :category_id', 'params'=>array(':category_id'=>$category->id)));
+        $news = News::model()->findAll(array(
+            'order'=>'date DESC', 
+            'limit'=>6, 
+            'condition'=>'category_id = :category_id AND date < :now', 
+            'params'=>array(':category_id'=>$category->id, ':now'=>date("Y-m-d H:i:s",time()+3600))
+        ));
+
+        $photoCategories = PhotoCategory::model()->findAll(array(
+            'order'=>'date DESC', 
+            'limit'=>6, 
+            'condition'=>'category_id = :category_id AND date < :now', 
+            'params'=>array(':category_id'=>$category->id, ':now'=>date("Y-m-d H:i:s",time()+3600))
+        ));
+
+        $videos = Video::model()->findAll(array(
+            'order'=>'date DESC', 
+            'limit'=>6, 
+            'condition'=>'category_id = :category_id AND date < :now', 
+            'params'=>array(':category_id'=>$category->id, ':now'=>date("Y-m-d H:i:s",time()+3600))
+        ));
+        
         $this->render('allNews', array(
             'news'=>$news,
             'photoCategories'=>$photoCategories,
@@ -268,7 +311,7 @@ class SiteController extends Controller
             $criteria = new CDbCriteria();
             $criteria->distinct = true;
             $criteria->condition='date >= :date_start AND date <= :date_end';
-            $criteria->params = array(':date_start'=>$_GET['date'].' 00.00.00', ':date_end'=>$_GET['date'].' 23.59.59');
+            $criteria->params = array(':date_start'=>$_GET['date'].' 00:00:00', ':date_end'=>$_GET['date'].' 23:59:59');
             $criteria->order = 'date DESC';
 
             $news = News::model()->findAll($criteria);
@@ -286,7 +329,12 @@ class SiteController extends Controller
             $data = News::model()->findByPk($id);
             $data->views++;
             $data->save();
-            $relatedNews = News::model()->findAll(array('condition'=>'category_id = :cat_id AND id NOT IN (:id)', 'params'=>array(':cat_id'=>$data->category_id, ':id'=>$data->id), 'limit'=>20, 'order'=>'date Desc'));
+            $relatedNews = News::model()->findAll(array(
+                'condition'=>'category_id = :cat_id AND id NOT IN (:id) AND date < :now', 
+                'params'=>array(':cat_id'=>$data->category_id, ':id'=>$data->id, ':now'=>date("Y-m-d H:i:s",time()+3600)), 
+                'limit'=>20, 
+                'order'=>'date Desc'));
+            
             $this->render('news', array('data'=>$data, 'relatedNews'=>$relatedNews));
         }
     }
@@ -306,7 +354,11 @@ class SiteController extends Controller
                 ),
             ));
 
-        $mostViewed = News::model()->findAll(array('condition'=>'region = :region', 'params'=> array(':region'=>$region),'order'=>'date DESC', 'limit'=>9));
+        $mostViewed = News::model()->findAll(array(
+            'condition'=>'region = :region AND date < :now', 
+            'params'=> array(':region'=>$region, ':now'=>date("Y-m-d H:i:s",time()+3600)),
+            'order'=>'date DESC', 
+            'limit'=>9));
 
         $this->render('category', array(
             'dataProvider'=>$dataProvider,
